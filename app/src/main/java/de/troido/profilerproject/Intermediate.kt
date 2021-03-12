@@ -1,3 +1,3 @@
 package de.troido.profilerproject
 
-class Intermediate(val reference:Any)
+class Intermediate(var reference:Any? = null)
