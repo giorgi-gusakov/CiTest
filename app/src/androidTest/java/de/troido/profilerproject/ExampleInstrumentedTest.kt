@@ -45,7 +45,7 @@ class ExampleInstrumentedTest {
                 .checkable(false)
                 .index(1)
         ).click()
-        Espresso.onView(withId(R.id.name_value))
+        Espresso.onView(withId(R.id.is_scanning_indicator))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Thread.sleep(5000)
         Espresso.pressBack()
