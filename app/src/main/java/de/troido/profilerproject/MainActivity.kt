@@ -9,12 +9,12 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.troido.bless.Bless
-import kotlinx.android.parcel.Parcelize
+import com.troido.bless.ui.scan.bless.BlessScanActivity
 
 @kotlinx.parcelize.Parcelize
-class ParcelableClass private constructor(val data:Set<String>):Parcelable{
+class ParcelableClass private constructor(val data: Set<String>) : Parcelable {
     companion object {
-        fun build()=ParcelableClass(setOf("one","two","three"));
+        fun build() = ParcelableClass(setOf("one", "two", "three"));
     }
 }
 
@@ -24,17 +24,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Bless.initialize(this)
         findViewById<Button>(R.id.button).setOnClickListener {
-            invokeCommand()
+//           val advertiser =  Bless.bleAdvertiser
+//            val settings  = AdvertiseSettings.Builder()
+//            Bless.deviceBonder.bondedDevices.forEach(::println)
+            BlessScanActivity.startForResult(this,1,null,null,null)
+//            MySuperLibrary.doAwesomeThing()
+//            invokeCommand()
         }
     }
 
     private fun invokeCommand() {
         println("print something")
-        val parcelableClass = ParcelableClass.build()
-        val intent = Intent(this,SecondActivity::class.java).also {
-            it.putExtra(EXTRA_KEY,parcelableClass)
-        }
-        startActivity(intent)
 //        BlessScanActivity.startForResult(this, 1)
 //        val filter = ScanFilter.empty()
 //        val settings = ScanSettings.default()
@@ -79,6 +79,51 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
     }
+
+/*
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            val address = BlessScanActivity.getAddressFromResult(data)
+            val connection = Bless.createBleConnection(address!!)
+            connection.registerListener(object : BleConnection.Listener {
+                override fun onConnected(services: List<GattService>) {
+                    println("Connected $services")
+                    Bless.deviceBonder.bondedDevices.forEach(::println)
+                }
+
+                override fun onDisconnected() {
+                    println("onDisconnected")
+                }
+
+                override fun onError(message: String) {
+                    println("onError")
+                }
+
+                override fun onMtuChanged(mtu: Int) {
+                    println("onMtuChanged $mtu")
+                }
+
+                override fun onNotify(characteristic: GattCharacteristic, data: ByteArray) {
+                    println("onNotify")
+                }
+
+                override fun onNotifyEnabled(characteristic: GattCharacteristic) {
+                    println("onNotifyEnabled")
+                }
+
+                override fun onRead(characteristic: GattCharacteristic, data: ByteArray) {
+                    println("onRead")
+                }
+
+                override fun onWrite(characteristic: GattCharacteristic) {
+                    println("onWrite")
+                }
+            })
+            connection.connect()
+        }
+    }
+*/
 
     private val leScanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult?) {

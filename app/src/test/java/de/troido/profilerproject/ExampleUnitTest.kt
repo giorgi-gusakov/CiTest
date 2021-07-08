@@ -1,5 +1,7 @@
 package de.troido.profilerproject
 
+//import de.troido.mylibrary.MySuperLibrary
+//import de.troido.mylibrary.MySuperLibrary
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +14,7 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
+//        MySuperLibrary.doAwesomeThing()
         assertEquals(4, 2 + 2)
     }
 }
